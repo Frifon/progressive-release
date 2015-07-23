@@ -3,7 +3,7 @@
 {% block content %}
     <div class="posts">
         {% for i, post in enumerate(posts) %}
-            <div class="post {% if i == 0 %}featured{% end %}">
+            <div class="post {% if i in (0,3) %}featured{% end %}">
                 {% block post %}
                     {{ post }}
                 {% end %}
