@@ -10,4 +10,17 @@
             </div>
         {% end %}
     </div>
+    <script src="{{ static_url("imagesloaded.pkgd.min.js") }}"></script>
+    <script src="{{ static_url("masonry.pkgd.min.js") }}"></script>
+    <script>
+        // init Masonry
+        var msnry = new Masonry( '.posts', {
+            itemSelector: '.post',
+            columnWidth: '.post:not(.featured)',
+            percentPosition: true,
+            transitionDuration: 0
+        });
+        // layout Masonry after each image loads
+        imagesLoaded('.posts').on('progress', function() { msnry.layout(); });
+    </script>
 {% end %}
