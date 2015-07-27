@@ -3,14 +3,23 @@ import tornado.ioloop
 import tornado.gen
 
 import os.path
+import datetime
 
 from database.query import get_best_posts
-from common.tools import timestamp_to_date
 
 def handle_overflow(s, maxlen=300):
     if len(s) > maxlen:
         return s[:maxlen-3] + '...'
     return s
+
+def readable_date(timestamp):
+    date = datetime.datetime.utcfromtimestamp(timestamp)
+    now = datetime.datetime.utcnow()
+    if date.year != now.year:
+        return format(date, '%d %b %Y at %H:%M')
+    if date.date() != now.date():
+        return format(date, '%d %b at %H:%M')
+    return format(date, '%H:%M')
 
 class PostsHandler(tornado.web.RequestHandler):
     def get(self):
@@ -21,7 +30,7 @@ class PostsHandler(tornado.web.RequestHandler):
             #if len(text) > 200:
                 #text = text[:200] + '...'
             #posts.append(text)
-        self.render('posts.html', posts=best_posts, timestamp_to_date=timestamp_to_date, handle_overflow=handle_overflow)
+        self.render('posts.html', posts=best_posts, readable_date=readable_date, handle_overflow=handle_overflow)
 
 class ImagesHandler(tornado.web.RequestHandler):
     def get(self):

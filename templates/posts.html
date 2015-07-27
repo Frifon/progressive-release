@@ -8,7 +8,7 @@
 {% block post %}
     <p class="text">{{ linkify(handle_overflow(post.text, maxlen=500)) }}</p>
     <p class="post-info"><a href="{{ post.link }}">
-        <span class="pub-date">{{ timestamp_to_date(post.publication_date) }}</span>
+        <span class="pub-date">{{ readable_date(post.publication_date) }}</span>
         <span>{{ post.likes_amount }} <i class="fa fa-heart"></i></span>
         <span>{{ post.reposts_amount }} <i class="fa fa-share"></i></span>
     </a></p>
