@@ -4,7 +4,7 @@ Web service for smart news aggregation
 
 **Библиотеки:**
 
-`pip install vk_api sqlalchemy`
+`pip3 install vk_api sqlalchemy tornado`
 
 
 **База данных:**
