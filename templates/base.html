@@ -18,17 +18,16 @@
 <body>
     <header>
         <img class="logo title" src="{{ static_url('logo_placeholder.png') }}">
-        <ul class="nav">
-            <li><a href="posts">Posts</a></li>
-            <li><a href="images">Images</a></li>
-            <li><a href="videos">Videos</a></li>
-        </ul>
         {% block vars %}
             {% set tab_index = 0 %}
         {% end %}
-        <script>
-            document.querySelectorAll("header .nav li")[{{ tab_index }}].classList.add("selected");
-        </script>
+        <ul class="nav">
+            {% for i, page in enumerate(['Posts', 'Images', 'Videos']) %}
+                <li {% if i == tab_index %} class="selected" {% end %}>
+                    <a href="{{ page.lower() }}">{{ page }}</a>
+                </li>
+            {% end %}
+        </ul>
         <div class="menu-collapse">
             <i class="fa fa-bars fa-lg menu-button"></i>
             <ul class="nav-links">
