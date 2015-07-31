@@ -1,5 +1,6 @@
 *.pyc
-*.json
-*.db
 *.wpu
 *.wpr
+
+vk_config.json
+vk.db
