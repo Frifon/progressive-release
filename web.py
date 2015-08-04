@@ -2,14 +2,21 @@ import tornado.web
 import tornado.ioloop
 import tornado.gen
 
+import re
 import os.path
 import datetime
 
 from database.query import get_best_posts
 
-def handle_overflow(s, maxlen=300):
+def prepare_post(s):
+
+    # handle overflow
+    maxlen = 300
     if len(s) > maxlen:
-        return s[:maxlen-3] + '...'
+        s = s[:maxlen-3] + '...'
+
+    # highlight hashtags
+    s = re.sub(r'(#\w+)', r'<span class="hashtag">\1</span>', s)
     return s
 
 def readable_date(timestamp):
@@ -30,7 +37,7 @@ class PostsHandler(tornado.web.RequestHandler):
             #if len(text) > 200:
                 #text = text[:200] + '...'
             #posts.append(text)
-        self.render('posts.html', posts=best_posts, readable_date=readable_date, handle_overflow=handle_overflow)
+        self.render('posts.html', posts=best_posts, readable_date=readable_date, prepare_post=prepare_post)
 
 class ImagesHandler(tornado.web.RequestHandler):
     def get(self):

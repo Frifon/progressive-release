@@ -6,7 +6,7 @@
 
 {% autoescape None %}
 {% block post %}
-    <p class="text">{{ linkify(handle_overflow(post.text, maxlen=500)) }}</p>
+    <p class="text">{{ prepare_post(linkify(post.text)) }}</p>
     <footer><a href="{{ post.link }}">
         <span>{{ post.likes_amount }}</span> <i class="fa fa-heart"></i>
         <span>{{ post.reposts_amount }}</span> <i class="fa fa-retweet"></i>
