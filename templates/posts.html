@@ -6,7 +6,7 @@
 
 {% autoescape None %}
 {% block post %}
-    <p class="text">{{ prepare_post(linkify(post.text)) }}</p>
+    <div class="text">{{ prepare_post(post.text) }}</div>
     <footer><a href="{{ post.link }}">
         <span>{{ post.likes_amount }}</span> <i class="fa fa-heart"></i>
         <span>{{ post.reposts_amount }}</span> <i class="fa fa-retweet"></i>

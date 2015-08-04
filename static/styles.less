@@ -181,7 +181,13 @@ header {
         }
 
         .text {
-            white-space: pre-wrap;
+            p {
+                overflow: hidden;
+                margin: 0;
+            }
+            a {
+                text-decoration: none;
+            }
             .hashtag {
                 color: @hashtag-color;
             }
@@ -215,13 +221,6 @@ header {
                     flex-grow: 5;
                     text-align: right;
                 }
-            }
-        }
-        p {
-            margin: 0;
-            overflow: hidden;
-            a {
-                text-decoration: none;
             }
         }
     }

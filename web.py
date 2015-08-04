@@ -1,6 +1,7 @@
 import tornado.web
 import tornado.ioloop
 import tornado.gen
+import tornado.escape
 
 import re
 import os.path
@@ -15,8 +16,14 @@ def prepare_post(s):
     if len(s) > maxlen:
         s = s[:maxlen-3] + '...'
 
+    s = tornado.escape.linkify(s, shorten=True)
+
     # highlight hashtags
     s = re.sub(r'(#\w+)', r'<span class="hashtag">\1</span>', s)
+
+    # format paragraphs
+    s = ''.join('<p>{}</p>'.format(p) for p in s.splitlines())
+
     return s
 
 def readable_date(timestamp):
