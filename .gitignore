@@ -1,6 +1,6 @@
 *.pyc
 *.wpu
 *.wpr
-
+*.DS_Store
 vk_config.json
 vk.db

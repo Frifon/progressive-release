@@ -15,12 +15,14 @@ def delete_post(post_id):
     session.delete(p)
     session.commit()
 
+
 def delete_all():
     try:
-        num_rows_deleted = session.query(Post).delete()
+        # num_rows_deleted = session.query(Post).delete()
         session.commit()
     except:
         session.rollback()
+
 
 def add_post(post):
     session.merge(post)

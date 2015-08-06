@@ -2,9 +2,11 @@
 
 __author__ = 'a.khachatryan'
 
-from parsers.wall import parse_wall
+from parsers.wall import Wall_parser
 from database.query import add_post, delete_post
+
 from time import time
+
 
 def get_users(filename):
     f = open('base/' + filename, 'r', encoding="utf-8")
@@ -18,28 +20,43 @@ def get_users(filename):
                 break
     return results
 
-def aggregator(users, best_post_delay = 10, max_old_post = 24 * 60 * 60, log = 0):
-    last_time = int(time())
-    best_post = None
+
+class Aggregator:
+    best_post_delay = 0
+    max_old_post = 0
+    log = 0
     used_posts = []
+    best_post = None
+    last_time = 0
 
-    while (1):
-        for user in users:
-            if log:
-                print("User", user, "scanning")
-            posts = parse_wall(user).posts
-            for post in posts:
-                if post.id not in used_posts and int(time()) - int(post.publication_date) < max_old_post:
-                   if best_post is None or post.likes_amount > best_post.likes_amount:
-                        best_post = post
-                        if log:
-                            print ("new best post updated:", best_post.id)
-            if best_post != None and int(time()) - last_time > best_post_delay:
-                add_post(best_post)
-                if log:
-                    print ("new best post id:", best_post.id)
-                    print ('')
-                used_posts.append(best_post.id)
-                last_time = int(time())
-                best_post = None
+    def after_wallparser(this, wall):
+        if this.log:
+            print('Processing ', wall.owner_id)
+        posts = wall.posts
+        for post in posts:
+            if post.id not in this.used_posts and int(time()) - int(post.publication_date) < this.max_old_post:
+                if this.best_post is None or post.likes_amount > this.best_post.likes_amount:
+                    this.best_post = post
+                    if this.log:
+                        print ("new best post updated:", this.best_post.id)
 
+        if this.best_post is not None and int(time()) - this.last_time > this.best_post_delay:
+            add_post(this.best_post)
+            if this.log:
+                print ("new best post id:", this.best_post.id, end='\n\n')
+            this.used_posts.append(this.best_post.id)
+            this.last_time = int(time())
+            this.best_post = None
+
+    def __init__(this, users, best_post_delay=10, max_old_post=24 * 60 * 60, log=0):
+        this.best_post_delay = best_post_delay
+        this.max_old_post = max_old_post
+        this.log = log
+
+        this.last_time = int(time())
+
+        print('Aggregator started')
+
+        while (1):
+            for user in users:
+                Wall_parser(user, this.after_wallparser)

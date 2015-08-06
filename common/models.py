@@ -179,8 +179,11 @@ class Attachments:
                     "extended": 1
                 }
 
-                extended_info = vk_api.method("photos.getById", values)[0]
-                likes_amount = extended_info["likes"]["count"]
+                try:
+                    extended_info = vk_api.method("photos.getById", values)[0]
+                    likes_amount = extended_info["likes"]["count"]
+                except:
+                    likes_amount = -1
 
                 parsed_photo = Photo(
                     id=id, owner_id=owner_id, timestamp=timestamp,
@@ -253,7 +256,11 @@ class Attachments:
                 url = link["url"]
                 title = link["title"]
                 description = link["description"]
-                image_src = link["image_src"]
+
+                try:
+                    image_src = link["image_src"]
+                except:
+                    image_src = None
 
                 parsed_link = Link(url=url, title=title,
                                    description=description,

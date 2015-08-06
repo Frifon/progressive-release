@@ -24,7 +24,10 @@ def is_club(link):
 
 
 def rank_groups(groups):
-    groups_info = list(filter(lambda club: 'members_count' in club.keys(), vk.method('groups.getById', {'group_ids': ",".join(groups), 'fields': 'members_count'})))
+    groups_info = list(filter(lambda club: 'members_count' in club.keys(),
+                              vk.method('groups.getById',
+                                        {'group_ids': ",".join(groups),
+                                         'fields': 'members_count'})))
     groups_info.sort(key=lambda gr: gr['members_count'], reverse=True)
     return groups_info
 
@@ -47,7 +50,8 @@ def rank_users(people):
         resp = vk.method('execute', {'code': code_run})
         for user in resp:
             if 'counters' in user.keys():
-                user_info = {'name': user['first_name'] + ' ' + user['last_name'], 'members_count': user['counters']['followers'],
+                user_info = {'name': user['first_name'] + ' ' + user['last_name'],
+                             'members_count': user['counters']['followers'],
                              'id': user['id']}
                 res.append(user_info)
 
@@ -90,7 +94,8 @@ def get_celeb(text):
         if pos != -1:
             club = "club"
             pos += len('vkontakte.ru/')
-            while pos < len(text) and (text[pos].isalpha() or text[pos].isdigit()):
+            while (pos < len(text) and (text[pos].isalpha()
+                   or text[pos].isdigit())):
                 club += text[pos]
                 pos += 1
             ans.append(club)
@@ -105,7 +110,8 @@ def get_celeb(text):
             if pos != -1:
                 club = "club"
                 pos += len('vk.com/')
-                while pos < len(text) and (text[pos].isalpha() or text[pos].isdigit()):
+                while (pos < len(text) and (text[pos].isalpha()
+                       or text[pos].isdigit())):
                     club += text[pos]
                     pos += 1
                 ans.append(club)
@@ -129,7 +135,8 @@ groups = list(set(groups))  # remove duplicates
 ranked_groups = rank_groups(groups)
 print(len(ranked_groups))
 for i, gr in enumerate(ranked_groups):
-    print('#%d %s %s %s' % (i, format(gr['members_count'], ',d'), gr['name'], 'vk.com/' + gr['screen_name']))
+    print('#%d %s %s %s' % (i, format(gr['members_count'], ',d'),
+                            gr['name'], 'vk.com/' + gr['screen_name']))
 
 print('---------\n\n')
 
@@ -140,4 +147,5 @@ for item in people:
 ranked_users = rank_users(people)
 print(len(ranked_users))
 for i, user in enumerate(ranked_users):
-    print('#%d %s %s %s' % (i, format(user['members_count'], ',d'), user['name'], 'vk.com/id' + str(user['id'])))
+    print('#%d %s %s %s' % (i, format(user['members_count'], ',d'),
+                            user['name'], 'vk.com/id' + str(user['id'])))
