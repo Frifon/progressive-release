@@ -2,14 +2,15 @@
 
 __author__ = 'a.khachatryan'
 
+from time import time
+import sys
+
 from parsers.wall import Wall_parser
 from database.query import add_post, delete_post
 
-from time import time
-
 
 def get_users(filename):
-    f = open('base/' + filename, 'r', encoding="utf-8")
+    f = open(sys.path[0] + '/' + 'base/' + filename, 'r', encoding="utf-8")
     lines = f.readlines()
     results = []
     for line in lines:

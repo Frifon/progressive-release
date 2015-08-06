@@ -5,7 +5,6 @@ __author__ = 'dimagalov'
 from common.models_db import Post
 from common.tools import get_current_timestamp
 from common.models_db import Attachments
-from database.query import add_post
 
 import traceback
 

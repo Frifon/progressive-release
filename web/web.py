@@ -7,7 +7,13 @@ import re
 import os.path
 import datetime
 
+import sys
+
+sys.path.append(sys.path[0] + '/../news')
+print (sys.path[-1])
+#from ..news.database.query import get_best_posts
 from database.query import get_best_posts
+
 
 def prepare_post(s):
 

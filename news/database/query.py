@@ -1,10 +1,11 @@
-from common.models_db import Post
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import desc
 
+from common.models_db import Post
+from database.config import engine
 
-engine = create_engine('sqlite:///vk.db')
+
 db_session = sessionmaker()
 db_session.configure(bind=engine)
 session = db_session()

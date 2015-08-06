@@ -2,11 +2,12 @@
 
 __author__ = 'emil.guseynov'
 
+from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+
 from common.tools import get_current_timestamp
 from common.tools import vk_api_authorization
 
-from sqlalchemy import Column, ForeignKey, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
