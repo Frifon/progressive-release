@@ -73,7 +73,7 @@ best_posts = get_best_posts(100)
 
 @tornado.gen.coroutine
 def watch_for_new_posts(port):
-    s = AsyncUDPSocket(port)
+    s = AsyncUDPSocket(('', port))
     while True:
         yield s.recvfrom()
         p = get_best_posts(1)
