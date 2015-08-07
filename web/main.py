@@ -3,6 +3,8 @@ import tornado.ioloop
 import tornado.gen
 import tornado.escape
 
+from asyncudp import AsyncUDPSocket
+
 import re
 import os.path
 import datetime
@@ -43,7 +45,6 @@ def readable_date(timestamp):
 
 class PostsHandler(tornado.web.RequestHandler):
     def get(self):
-        best_posts = get_best_posts(100)
         #posts = []
         #for post in best_posts:
             #text = post.text
@@ -69,6 +70,16 @@ class VideosHandler(tornado.web.RequestHandler):
         ]
         self.render('videos.html', posts=posts)
 
+best_posts = get_best_posts(100)
+
+@tornado.gen.coroutine
+def watch_for_new_posts(port):
+    s = AsyncUDPSocket(port)
+    while True:
+        yield s.recvfrom()
+        p = get_best_posts(1)
+        best_posts = p + best_posts
+
 def main():
     app = tornado.web.Application(
         [
@@ -83,8 +94,10 @@ def main():
         debug=True
         )
     app.listen(8888)
-    print ('server is listening on port 8888')
-    tornado.ioloop.IOLoop.current().start()
+    print('server is listening on port 8888')
+    loop = tornado.ioloop.IOLoop.current()
+    loop.add_callback(watch_for_new_posts, 8953)
+    loop.start()
 
 
 if __name__ == "__main__":
