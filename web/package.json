@@ -1,0 +1,17 @@
+{
+  "name": "progressive",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-less": "^1.0.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "less-plugin-autoprefix": "^1.4.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://githu,b.com/Frifon/progressive-release.git"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}

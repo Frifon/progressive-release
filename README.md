@@ -6,12 +6,17 @@ Web service for smart news aggregation
 
 `pip3 install vk_api sqlalchemy tornado`
 
+`cd web && npm install`
 
 **База данных:**
 
-`python3 database/create_db.py`
+`python3 news/database/create_db.py`
 
+**Сборка веб-файлов**
+
+`cd web`
+`grunt less autoprefixer` или `grunt watch`
 
 **Запуск:**
 
-`python3 web.py & python3 main.py &`
+`python3 web/web.py & python3 news/main.py &`
