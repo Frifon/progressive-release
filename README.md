@@ -19,4 +19,4 @@ Web service for smart news aggregation
 
 **Запуск:**
 
-`python3 web/web.py & python3 news/main.py &`
+`python3 web/main.py & python3 news/main.py &`
