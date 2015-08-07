@@ -30,8 +30,8 @@ class Photo(Base):
     timestamp = Column(Integer)
     publication_date = Column(Integer)
     likes_amount = Column(Integer)
-    link = Column(String)
-    description = Column(String)
+    link = Column(String(100))
+    description = Column(String(100))
 
     post_id = Column(Integer, ForeignKey('post.id', ondelete='cascade'))  # new
 
@@ -54,12 +54,12 @@ class Audio(Base):
     """
 
     id = Column(Integer, primary_key=True)
-    artist = Column(String)
-    title = Column(String)
+    artist = Column(String(100))
+    title = Column(String(100))
     owner_id = Column(Integer)
     timestamp = Column(Integer)
     duration = Column(Integer)
-    link = Column(String)
+    link = Column(String(100))
     lyrics_id = Column(Integer)
     album_id = Column(Integer)
     genre_id = Column(Integer)
@@ -85,11 +85,11 @@ class Video(Base):
 
     id = Column(Integer, primary_key=True)
     owner_id = Column(Integer)
-    title = Column(String)
+    title = Column(String(100))
     timestamp = Column(Integer)
-    description = Column(String)
+    description = Column(String(100))
     duration = Column(Integer)
-    link = Column(String)
+    link = Column(String(100))
     publication_date = Column(Integer)
     views_amount = Column(Integer)
     likes_amount = Column(Integer)
@@ -109,11 +109,11 @@ class Link(Base):
     """
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    url = Column(String)
-    title = Column(String)
+    url = Column(String(100))
+    title = Column(String(100))
     timestamp = Column(Integer)
-    description = Column(String)
-    image_src = Column(String)
+    description = Column(String(100))
+    image_src = Column(String(100))
 
     post_id = Column(Integer, ForeignKey('post.id', ondelete='cascade'))  # new
 
@@ -288,11 +288,11 @@ class Post(Base):
     author_id = Column(Integer)
     timestamp = Column(Integer)
     publication_date = Column(Integer)
-    text = Column(String)
+    text = Column(String(100))
     likes_amount = Column(Integer)
     reposts_amount = Column(Integer)
-    post_type = Column(String)
-    link = Column(String)
+    post_type = Column(String(100))
+    link = Column(String(100))
     attachments = Attachments()
 
     def __str__(self):
