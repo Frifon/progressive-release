@@ -4,6 +4,7 @@ __author__ = 'a.khachatryan'
 
 from time import time
 import sys
+import socket
 
 from parsers.wall import Wall_parser
 from database.query import add_post, delete_post
@@ -20,6 +21,15 @@ def get_users(filename):
                 results.append(str(arg)[str(arg).find('id') + 2:])
                 break
     return results
+
+
+def send_notification():
+    UDP_IP = "127.0.0.1"
+    UDP_PORT = 8953
+    MESSAGE = "Hello, World!"
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
 
 
 class Aggregator:
@@ -40,7 +50,7 @@ class Aggregator:
                     this.best_post = post
                     if this.log:
                         print ("new best post updated:", this.best_post.id)
-
+                        send_notification()
         if this.best_post is not None and int(time()) - this.last_time > this.best_post_delay:
             add_post(this.best_post)
             if this.log:
