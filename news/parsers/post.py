@@ -5,6 +5,7 @@ __author__ = 'dimagalov'
 from common.models_db import Post
 from common.tools import get_current_timestamp
 from common.models_db import Attachments
+from database.query import add_post
 
 import traceback
 
@@ -88,22 +89,36 @@ def get_post_attachments(post):
         pass
 
 
-def parse_post(post):
-    id = get_post_id(post)
-    owner_id = get_post_owner_id(post)
-    author_id = get_post_author_id(post)
-    timestamp = get_current_timestamp()
-    publication_date = get_post_publication_date(post)
-    text = get_post_text(post)
-    likes_amount = get_post_likes_amount(post)
-    reposts_amount = get_post_reposts_amount(post)
-    post_type = get_post_type(post)
-    link = get_post_link(post)
-    attachments = get_post_attachments(post)
-    parsed_post = Post(id=id, owner_id=owner_id, author_id=author_id,
-                       timestamp=timestamp, publication_date=publication_date,
-                       text=text, likes_amount=likes_amount,
-                       reposts_amount=reposts_amount, post_type=post_type,
-                       link=link, attachments=attachments)
+class Post_parser():
+    post = 0
+    callback = 0
 
-    return parsed_post
+    def after_attachments_parser(self, attachments):
+        post = self.post
+        id = get_post_id(post)
+        owner_id = get_post_owner_id(post)
+        author_id = get_post_author_id(post)
+        timestamp = get_current_timestamp()
+        publication_date = get_post_publication_date(post)
+        text = get_post_text(post)
+        likes_amount = get_post_likes_amount(post)
+        reposts_amount = get_post_reposts_amount(post)
+        post_type = get_post_type(post)
+        link = get_post_link(post)
+        parsed_post = Post(id=id, owner_id=owner_id, author_id=author_id,
+                           timestamp=timestamp, publication_date=publication_date,
+                           text=text, likes_amount=likes_amount,
+                           reposts_amount=reposts_amount, post_type=post_type,
+                           link=link, attachments=attachments)
+
+        self.callback(parsed_post)
+
+    def __init__(self, post, callback):
+        self.post = post
+        self.callback = callback
+
+        list_of_attachments = []
+        if 'attachments' in post:
+            list_of_attachments = post['attachments']
+        Attachments(list_of_attachments=list_of_attachments,
+                    callback=self.after_attachments_parser)

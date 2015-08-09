@@ -5,6 +5,8 @@ __author__ = 'dimagalov'
 from aggregator.aggregator import get_users, Aggregator
 from database.query import delete_all
 
+print('Hope you\'ve created database (database\\create_db.py)')
+
 delete_all()
 
 Aggregator(get_users('users_club_22079806'), best_post_delay=10,
