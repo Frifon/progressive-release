@@ -31,6 +31,7 @@ class Photo(Base):
     publication_date = Column(Integer)
     likes_amount = Column(Integer)
     link = Column(String(100))
+    insta_link = Column(String(100))
     description = Column(String(100))
 
     post_id = Column(Integer, ForeignKey('post.id', ondelete='cascade'))  # new

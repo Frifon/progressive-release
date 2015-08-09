@@ -10,10 +10,10 @@ import os.path
 import datetime
 
 import sys
-
 sys.path.append(sys.path[0] + '/../news')
 #from ..news.database.query import get_best_posts
 from database.query import get_best_posts
+from insta import media_popular
 
 
 def prepare_post(s):
@@ -54,12 +54,16 @@ class PostsHandler(tornado.web.RequestHandler):
 
 class ImagesHandler(tornado.web.RequestHandler):
     def get(self):
+        '''
         posts = [
             'http://lorempixel.com/800/400', 'http://lorempixel.com/801/400', 'http://lorempixel.com/802/405',
             'http://lorempixel.com/803/400', 'http://lorempixel.com/804/400', 'http://lorempixel.com/805/400',
             'http://lorempixel.com/806/400', 'http://lorempixel.com/807/400', 'http://lorempixel.com/808/400',
         ]
-        self.render('images.html', posts=posts)
+        '''
+        posts = media_popular()
+        #self.render('images.html', posts=posts)
+        self.render('images.html', posts=posts, readable_date=readable_date)
 
 class VideosHandler(tornado.web.RequestHandler):
     def get(self):
@@ -74,6 +78,7 @@ best_posts = get_best_posts(100)
 @tornado.gen.coroutine
 def watch_for_new_posts(port):
     s = AsyncUDPSocket(('', port))
+    global best_posts
     while True:
         yield s.recvfrom()
         p = get_best_posts(1)

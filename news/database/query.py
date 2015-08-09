@@ -36,3 +36,11 @@ def get_best_posts(number):
     except:
         number = 0
     return session.query(Post).order_by(desc('timestamp')).limit(number).all()
+
+
+def get_best_images():
+    try:
+        number = int(number)
+    except:
+        number = 0
+    return session.query(Photo).order_by(desc('timestamp')).limit(number).all()

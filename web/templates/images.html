@@ -1,10 +1,17 @@
 {% extends feed.html %}
 
 {% block vars %}
-    {% set tab_index = 1 %}
+    {% set tab_index = 0 %}
 {% end %}
 
-
+{% autoescape None %}
 {% block post %}
-    <img src="{{ post }}"/>
+
+    <footer>
+        <a href= {{ post.insta_link }} >
+            <img src={{post.link}} height="320" width="320"/>
+            <span>{{ post.likes_amount }}</span> <i class="fa fa-heart"></i>
+            <span class="pub-date">{{ post.publication_date }}</span>
+        </a>
+    </footer>
 {% end %}
