@@ -4,5 +4,6 @@
 *.DS_Store
 vk_config.json
 vk.db
+LOG.txt
 web/node_modules
 web/static/build
