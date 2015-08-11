@@ -15,7 +15,7 @@ def media_popular():
         return 'Missing Access Token'
     try:
         api = client.InstagramAPI(access_token=access_token, client_secret=client_secret)
-        media_search = api.media_popular(count=100)
+        media_search = api.media_popular(count=10)
         photos = []
 
         for media in media_search:
