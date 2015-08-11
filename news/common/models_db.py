@@ -258,8 +258,7 @@ class Attachments:
                 self.check_readiness()
 
             else:
-                self.amount -= 1
-        self.check_readiness()
+                self.check_readiness()
 
     def get(self):
         return self.list_of_attachments

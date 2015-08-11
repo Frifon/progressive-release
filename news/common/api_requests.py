@@ -118,7 +118,7 @@ class Add_request:
             while current_requests > 0:
                 if self._debug:
                     print('.', end=' ')       # DEBUG PRINT
-                now = self.callbacks.popleft()(resp[index])
+                self.callbacks.popleft()(resp[index])
                 index += 1
                 current_requests -= 1
 
