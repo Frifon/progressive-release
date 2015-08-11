@@ -30,7 +30,7 @@ def send_notification():
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.sendto(bytes(MESSAGE, 'utf-8'), (UDP_IP, UDP_PORT))
-
+    print ("notified")
 
 class Aggregator:
     best_post_delay = 0
@@ -48,11 +48,13 @@ class Aggregator:
             if post.id not in this.used_posts and int(time()) - int(post.publication_date) < this.max_old_post:
                 if this.best_post is None or post.likes_amount > this.best_post.likes_amount:
                     this.best_post = post
-                    send_notification()
+
         if this.best_post is not None and int(time()) - this.last_time > this.best_post_delay:
             add_post(this.best_post)
             if this.log:
                 print ("new best post id:", this.best_post.id, end='\n\n')
+                send_notification()
+
             this.used_posts.append(this.best_post.id)
             this.last_time = int(time())
             this.best_post = None
