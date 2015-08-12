@@ -10,7 +10,7 @@ import traceback
 
 
 class Add_request:
-    _debug = False
+    _debug = True
 
     execute_limit = 25
     requests = deque()
@@ -29,6 +29,12 @@ class Add_request:
         popped = 0
         if self._debug:
             print('photos_callback')
+
+        if responce is False:
+            for i in range(self.photo_limit):
+                self.photo_values_in_process.popleft()
+                self.photo_callbacks.popleft()(False)
+            return
 
         for photo_info in responce:
             processed = False
