@@ -26,7 +26,7 @@ class Add_request:
 
     def photos_callback(responce):
         self = Add_request 
-        popped_callbacks = 0
+        popped = 0
         if self._debug:
             print('photos_callback')
 
@@ -37,14 +37,16 @@ class Add_request:
                 photo_id = self.photo_values_in_process.popleft().split('_')[1]
                 if photo_id != str(photo_info['id']):
                     if self._debug:
-                        print('BAD', photo_id, '!=', photo_info['id'])
+                        print('BAD', photo_id, '!=', photo_info['id'], end=' ')
                     self.photo_callbacks.popleft()(False)
                 else:
                     if self._debug:
-                        print("GOOD")
+                        print("GOOD", end=' ')
                     self.photo_callbacks.popleft()(photo_info)
                     processed = True
-                popped_callbacks += 1
+                if self._debug:
+                    print(len(self.photo_values), len(self.photo_values_in_process), len(self.photo_callbacks))
+                popped += 1
 
                 if self._debug and len(self.photo_values_in_process) > 0:
                     print(self.photo_values_in_process[0], end=' ')
@@ -54,9 +56,10 @@ class Add_request:
                 print('REQUEST FOR PHOTO IS MISSING')
                 exit(-1)
 
-        while popped_callbacks < self.photo_limit:
+        while popped < self.photo_limit:
+            self.photo_values_in_process.popleft()
             self.photo_callbacks.popleft()(False)
-            popped_callbacks += 1
+            popped += 1
 
     def execute_requests(self):
         Add_request._execute_mutex = True
@@ -128,10 +131,10 @@ class Add_request:
         Add_request._execute_mutex = False
 
     def add_photo_request(self, values, callback):
-        if self._debug:
-            print('add_photo_request', values['photos'])
         self.photo_values.append(values['photos'])
         self.photo_callbacks.append(callback)
+        if self._debug:
+            print('add_photo_request', values['photos'], len(self.photo_values), len(self.photo_values_in_process), len(self.photo_callbacks))
         if len(self.photo_values) >= self.photo_limit:
             final_request = []
             for i in range(self.photo_limit):

@@ -41,6 +41,8 @@ class Aggregator:
     last_time = 0
 
     def after_wallparser(this, wall):
+        if wall == False:
+            return
         if this.log:
             print('Processing ', wall.owner_id)
         posts = wall.posts

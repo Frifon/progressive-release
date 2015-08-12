@@ -9,5 +9,5 @@ print('Hope you\'ve created database (database\\create_db.py)')
 
 delete_all()
 
-Aggregator(get_users('users_club_22079806'), best_post_delay=10,
+Aggregator(get_users('users_10000'), best_post_delay=10,
            max_old_post=24 * 60 * 60, log=1)
