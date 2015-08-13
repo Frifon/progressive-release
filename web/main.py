@@ -5,16 +5,17 @@ import tornado.escape
 
 from asyncudp import AsyncUDPSocket
 
+import sys
 import re
 import os.path
 import datetime
+import pathlib
 
-import sys
-sys.path.append(sys.path[0] + '/../news')
-#from ..news.database.query import get_best_posts
-from database.query import get_best_posts
-from insta import media_popular
+top_dir = pathlib.Path(__file__).parent.parent
+sys.path.append(str(top_dir / 'news'))
+sys.path.append(str(top_dir / 'db_api'))
 
+from get_best import get_best_posts, get_best_images
 
 def prepare_post(s):
 

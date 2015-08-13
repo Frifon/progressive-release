@@ -2,10 +2,6 @@ from instagram import client, subscriptions
 from common.models_db import Photo
 from common.tools import get_current_timestamp
 
-import sys
-sys.path.append(sys.path[0] + '/../news')
-
-
 access_token="2068329023.d15f6bc.98b280d79e514ddbbe41209a2579a7ac"
 client_secret="f377934346184eda8b9b506f5b6f9bd2"
 
