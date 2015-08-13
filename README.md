@@ -4,7 +4,7 @@ Web service for smart news aggregation
 
 **Библиотеки:**
 
-`pip3 install vk_api sqlalchemy tornado pymysql`
+`pip3 install -r requirements.txt`
 
 `cd web && npm install`
 
@@ -19,4 +19,4 @@ Web service for smart news aggregation
 
 **Запуск:**
 
-`python3 web/main.py & python3 news/main.py &`
+`python3 news/main.py & python3 web/main.py &`
