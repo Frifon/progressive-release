@@ -98,7 +98,8 @@ class Post_parser():
         id = get_post_id(post)
         owner_id = get_post_owner_id(post)
         author_id = get_post_author_id(post)
-        timestamp = get_current_timestamp()
+        # timestamp = get_current_timestamp()
+        timestamp = 0
         publication_date = get_post_publication_date(post)
         text = get_post_text(post)
         likes_amount = get_post_likes_amount(post)

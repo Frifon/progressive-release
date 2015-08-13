@@ -23,6 +23,8 @@ class Wall_parser:
         self.parsed_posts.append(parsed_post)
         self.posts_amount += 1
         if self.posts_amount == self.posts_total:
+            for post in self.parsed_posts:
+                post.timestamp = get_current_timestamp()
             parsed_wall = Wall(owner_id=self.user,
                                posts=self.parsed_posts,
                                timestamp=get_current_timestamp(),
