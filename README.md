@@ -19,6 +19,7 @@ Web service for smart news aggregation
 
 #### Конфигурация MySQL
 Нужно изменить стандартную кодировку MySQL на utf8mb4. Для этого необходимо в файле конфигурации для MySQL `my.cnf`, который находится:
+
 `/etc/mysql/my.cnf` или `/etc/my.cnf`
 
 Внести следующие изменения:
