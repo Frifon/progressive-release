@@ -77,7 +77,7 @@ admin@linux-495i:~> echo $GRESSPRO
 `python3 news/database/create_db.py`
 
 #### Поиск групп для сбора информации
-`python3 news/base/json_groups.py && python3 news/base/find_groups.py`
+`python3 news/base/json_groups.py && python3 news/base/find_groups.py && python3 news/base/insta_groups.py`
 
 **Сборка веб-файлов**
 

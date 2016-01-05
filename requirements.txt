@@ -3,3 +3,4 @@ SQLAlchemy
 PyMySQL
 python-instagram
 tornado
+ete3
